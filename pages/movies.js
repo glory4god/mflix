@@ -2,6 +2,13 @@ import React from 'react';
 import { connectToDatabase } from '../util/mongodb';
 
 export default function Movies({ movies }) {
+  const book = async (property) => {
+    const data = await fetch(
+      `http://localhost:3000/api/save?property_id=${property._id}`,
+    );
+    const res = await data.json();
+    console.log(res);
+  };
   return (
     <div>
       <h1>Top 20 Movies of All Time</h1>
@@ -11,7 +18,7 @@ export default function Movies({ movies }) {
       <ul>
         {movies.map((movie) => (
           <li>
-            <h2>{movie.title}</h2>
+            <h2 onClick={() => book(movie)}>{movie.title}</h2>
             <h3>{movie.metacritic}</h3>
             <p>{movie.plot}</p>
           </li>
